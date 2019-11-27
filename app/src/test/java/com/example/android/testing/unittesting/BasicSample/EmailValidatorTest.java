@@ -37,13 +37,48 @@ public class EmailValidatorTest {
         assertTrue(EmailValidator.isValidEmail("my@dot.biz"));
     }
 
+    @Test
+    public void emailValidator_IncorrectEmailSimple_ReturnFalse(){
+        assertFalse(EmailValidator.isValidEmail("brian@!.com"));
+    }
+
     //This fails because the email validator is not very sophisticated
     @Test
     public void emailValidator_CorrectEmailSubDomain_ReturnsTrue() {
         assertTrue(EmailValidator.isValidEmail("name@email.co.uk"));
     }
 
+
     //TODO: Find more VALID emails where the validator fails work
+
+    @Test
+    public void emailValidator_CorrectEmailTopDomain_ReturnTrue(){
+        assertTrue(EmailValidator.isValidEmail("support@wish.sg"));
+    }
+    @Test
+    public void emailValidator_CorrectEmailName_ReturnTrue(){
+        assertTrue(EmailValidator.isValidEmail("y@zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.com"));
+    }
+
+    @Test
+    public void emailValidator_CorrectEmailDomain_ReturnTrue(){
+        assertTrue(EmailValidator.isValidEmail("abc@[123.123.123.123]"));
+    }
+
+    @Test
+    public void emailValidator_IncorrectEmailName_ReturnFalse(){
+        assertFalse(EmailValidator.isValidEmail("abc-@mail.com"));
+    }
+
+    @Test
+    public void emailValidator_INcorrectEmailName_ReturnFalse(){
+        assertFalse(EmailValidator.isValidEmail(".abc@email.com"));
+    }
+
+    @Test
+    public void emailValidator_IncorrectEmailDomain_ReturnFalse(){
+        assertFalse(EmailValidator.isValidEmail("abc@mail.c"));
+    }
 
     @Test
     public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
