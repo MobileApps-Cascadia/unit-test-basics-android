@@ -33,8 +33,11 @@ public class EmailValidatorTest {
 
         boolean result = EmailValidator.isValidEmail("name@email.com");
         assertTrue(result);
+    }
+    @Test
+    public void emailValidator_IncorrectEmailSimple_ReturnFalse() {
         //Another example
-        assertTrue(EmailValidator.isValidEmail("my@dot.biz"));
+        assertFalse(EmailValidator.isValidEmail("brian@!.biz"));
     }
 
     //This fails because the email validator is not very sophisticated
@@ -44,6 +47,40 @@ public class EmailValidatorTest {
     }
 
     //TODO: Find more VALID emails where the validator fails work
+    @Test
+    public void emailValidator_InvalidEmailHorseBeforeTheCart_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail(".com@email.com"));
+    }
+
+    @Test
+    public void emailValidator_MissingAt_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("nameemail.com"));
+    }
+
+    @Test
+    public void emailValidator_DotAt_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name.@email.com"));
+    }
+
+    @Test
+    public void emailValidator_InvalidEmailHashtagLosing() {
+        assertFalse((EmailValidator.isValidEmail("@#email.com")));
+    }
+
+    @Test
+    public void emailValidator_InvalidEmailCommaCom() {
+        assertFalse((EmailValidator.isValidEmail("chameleon@email,com")));
+    }
+
+    @Test
+    public void emailValidator_CorrectEmailUno_ReturnsTrue() {
+        assertTrue(EmailValidator.isValidEmail("name@email.uno"));
+    }
+
+    @Test
+    public void emailValidator_CorrectEmailVodka_ReturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("name@email.vodka"));
+    }
 
     @Test
     public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
