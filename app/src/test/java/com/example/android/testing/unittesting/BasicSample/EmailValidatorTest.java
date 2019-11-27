@@ -33,8 +33,12 @@ public class EmailValidatorTest {
 
         boolean result = EmailValidator.isValidEmail("name@email.com");
         assertTrue(result);
+    }
+
+    @Test
+            public void emailValidator_IncorrectEmailSimple_ReturnFalse(){
         //Another example
-        assertTrue(EmailValidator.isValidEmail("my@dot.biz"));
+        assertFalse(EmailValidator.isValidEmail("chuck@!.biz"));
     }
 
     //This fails because the email validator is not very sophisticated
@@ -43,11 +47,35 @@ public class EmailValidatorTest {
         assertTrue(EmailValidator.isValidEmail("name@email.co.uk"));
     }
 
+    @Test
+    public void emailValidator_CorrectEmailWithNumber_ReturnsTrue(){
+        assertTrue(EmailValidator.isValidEmail("name6@email.us.uk"));
+    }
+
+    @Test
+    public void emailValidator_WrongEmailWithMorePeriods_ReturnsFalse(){
+        assertFalse(EmailValidator.isValidEmail("name.....lastname@email.com"));
+    }
+
+    @Test
+    public void emailValidator_CorrectEmail_ReturnsTrue(){
+        assertTrue(EmailValidator.isValidEmail("name|6@email.com"));
+    }
+
+    @Test
+    public void emailValidator_WrongEmailWithNumber_ReturnsFalse(){
+        assertFalse(EmailValidator.isValidEmail("bob@bob0.com"));
+    }
     //TODO: Find more VALID emails where the validator fails work
 
     @Test
     public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
         assertFalse(EmailValidator.isValidEmail("name@email"));
+    }
+
+    @Test
+    public void emailValidator_InvalidEmailNumberedDomain_ReturnFalse(){
+        assertFalse(EmailValidator.isValidEmail("name@email.00"));
     }
 
     @Test
