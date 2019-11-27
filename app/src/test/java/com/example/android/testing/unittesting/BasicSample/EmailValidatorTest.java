@@ -16,6 +16,8 @@
 
 package com.example.android.testing.unittesting.BasicSample;
 
+import android.provider.ContactsContract;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -33,8 +35,11 @@ public class EmailValidatorTest {
 
         boolean result = EmailValidator.isValidEmail("name@email.com");
         assertTrue(result);
-        //Another example
-        assertTrue(EmailValidator.isValidEmail("my@dot.biz"));
+    }
+    @Test
+    public void emailValidator_BadEmailSimple_ReturnsFalse() {
+
+        assertFalse(EmailValidator.isValidEmail("my@dot!.biz"));
     }
 
     //This fails because the email validator is not very sophisticated
@@ -46,17 +51,61 @@ public class EmailValidatorTest {
     //TODO: Find more VALID emails where the validator fails work
 
     @Test
-    public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
+    public void emailValidator_InvalidEmailNoTld_ReturnsTrue() {
         assertFalse(EmailValidator.isValidEmail("name@email"));
     }
 
     @Test
-    public void emailValidator_InvalidEmailDoubleDot_ReturnsFalse() {
+    public void emailValidator_InvalidEmailNoLetterFirstInTLDreturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("name@gmail.0"));
+    }
+
+    @Test
+    public void emailValidator_InvalidEmailNoTldDot_ReturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("name@gmail."));
+    }
+
+    @Test
+    public void emailValidator_Demonstrates_errors_in_regex_leter_range() {
+        assertTrue(EmailValidator.isValidEmail("putin@kremlin.ru"));
+    }
+
+
+    @Test
+    public void emailValidator_InvalidEmailPrefixStartsWithDot() {
+        assertFalse(EmailValidator.isValidEmail(".name@gmai.com"));
+    }
+
+    @Test
+    public void emailValidator_InvalidEmailPrefixEndsWithDash() {
+        assertFalse(EmailValidator.isValidEmail("name-@gmail.com"));
+    }
+
+
+    @Test
+    public void emailValidator_InvalidEmailDoubleUnderscoreInPrefixReturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("my__a@underscore.com"));
+    }
+    @Test
+    public void emailValidator_InvalidEmailDoublePeriodInPrefixReturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("my..b@abcd.com"));
+        }
+    @Test
+    public void emailValidator_InvalidEmailUnderscorePeriodReturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("ab_.hello@email.com"));
+    }
+
+    @Test
+    public void emailValidator_InvalidEmailPeriodUnderscoreReturnsTrue() {
+        assertFalse(EmailValidator.isValidEmail("ab._hello@email.com"));
+    }
+    @Test
+    public void emailValidator_InvalidEmailDoubleDot_ReturnsTrue() {
         assertFalse(EmailValidator.isValidEmail("name@email..com"));
     }
 
     @Test
-    public void emailValidator_InvalidEmailNoUsername_ReturnsFalse() {
+    public void emailValidator_InvalidEmailNoUsername_ReturnsTrue() {
         assertFalse(EmailValidator.isValidEmail("@email.com"));
     }
 
