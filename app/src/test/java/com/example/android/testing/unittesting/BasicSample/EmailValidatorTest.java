@@ -44,6 +44,18 @@ public class EmailValidatorTest {
     }
 
     //TODO: Find more VALID emails where the validator fails work
+    @Test
+    public void emailValidator_ValidEmailAddress_ReturnsTrue() {
+        assertTrue(EmailValidator.isValidEmail("silvio%guiso@gmail.com"));
+        assertTrue(EmailValidator.isValidEmail("silvio&guiso@gmail.com"));
+    }
+
+    @Test
+    public void emailValidator_InvalidAddress_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("silvio@guiso@gmail.com"));
+        assertFalse(EmailValidator.isValidEmail("silvio()*@gmail.com"));
+        assertFalse(EmailValidator.isValidEmail("silvio@..com.my"));
+    }
 
     @Test
     public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {

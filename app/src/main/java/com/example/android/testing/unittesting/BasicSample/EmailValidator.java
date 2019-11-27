@@ -31,13 +31,7 @@ public class EmailValidator implements TextWatcher {
      * TODO: Find a better Regular Expression email pattern online
      */
     public static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                    "(" +
-                    "\\." +
-                    "[a-oA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                    ")+"
+            "^[_A-Za-z0-9-\\&\\%]+(\\.[_A-Za-z0-9-\\&\\%]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
     );
 
     private boolean mIsValid = false;
