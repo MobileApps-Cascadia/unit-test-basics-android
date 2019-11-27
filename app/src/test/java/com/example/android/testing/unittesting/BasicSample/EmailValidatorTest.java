@@ -67,7 +67,7 @@ public class EmailValidatorTest {
 
     @Test
     public void emailValidator_IncorrectEmailName_ReturnFalse(){
-        assertFalse(EmailValidator.isValidEmail("abc-@mail.com"));
+        assertFalse(EmailValidator.isValidEmail("abc.@mail.com"));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class EmailValidatorTest {
 
     @Test
     public void emailValidator_IncorrectEmailDomain_ReturnFalse(){
-        assertFalse(EmailValidator.isValidEmail("abc@mail.c"));
+        assertFalse(EmailValidator.isValidEmail("abc@mail.c-"));
     }
 
     @Test
